@@ -1,31 +1,46 @@
 
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SharedModule } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, CommonModule, NgOptimizedImage],
   templateUrl: './app.component.html',
+  imports: [
+    RouterOutlet, 
+    CommonModule, 
+    NgOptimizedImage,
+    SharedModule],
+  standalone: true,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'test_app';
 
-  loaded = false;
+  public loaded = false;
 
-  ID_FOTO_INCREMENTAL = 0;
-  urlArray: string[] = []
+  private totalIds = 4000;
+  private lastId = 0;
+  private ID_FOTO_INCREMENTAL = 0;
+  public urlArray: string[] = []
 
   ngOnInit() {
     this.loaded = false;
-    for(let i = 0; i <= 4000; i++){
-      this.ID_FOTO_INCREMENTAL = i;
-      this.urlArray.push(`https://picsum.photos/id/${this.ID_FOTO_INCREMENTAL}/500/500.jpg`);
-    }
-    this.loaded = true
+   
+    this.loaded = true;
+    
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event:any){
+    // console.log(event);
+
+    // this.loadImages()
+  }
+
+  loadImages(){
+
+  }
 
 }
