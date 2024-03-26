@@ -1,11 +1,14 @@
 .list{
+    max-height: 100vh;
     max-width: 100%;
     display: flex;
+    position: relative;
     flex-direction: column;
     margin: auto;
     justify-content: center;
     align-items: center;
-    
+    overflow-y: scroll;
+    //overflow-anchor: none;
     .image{
         width: fit-content;
         height: fit-content;

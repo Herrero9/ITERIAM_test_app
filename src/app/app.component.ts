@@ -3,6 +3,8 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
+import { SharedService } from './shared/shared.service';
+import { Photo } from './shared/Models/models';
 
 @Component({
   selector: 'app-root',
@@ -18,29 +20,17 @@ import { SharedModule } from './shared/shared.module';
 export class AppComponent {
   title = 'test_app';
 
-  public loaded = false;
+  scrollEnd: boolean = false;
 
-  private totalIds = 4000;
-  private lastId = 0;
-  private ID_FOTO_INCREMENTAL = 0;
-  public urlArray: string[] = []
+  imgArray: Photo[] = [];
+
+  constructor(private _sharedService: SharedService) {
+  } 
 
   ngOnInit() {
-    this.loaded = false;
-   
-    this.loaded = true;
-    
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event:any){
-    // console.log(event);
-
-    // this.loadImages()
-  }
-
-  loadImages(){
-
+    this._sharedService.populateArray()
+    this.imgArray = JSON.parse(this._sharedService.generateImgJson());
+      // console.log(this.imgArray);
   }
 
 }

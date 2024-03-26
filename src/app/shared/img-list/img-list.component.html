@@ -1,11 +1,10 @@
-<div class="list">
+<div #list class="list" (scroll)="onScroll($event)">
   <ng-container *ngFor="let img of this.partialImgLoad">
-    <div class="image" >
+    <div class="image">
       <img src={{img.photo}} >
       <div class="img-footer">
         <span>{{img.text}}</span>
       </div>
     </div>
-    
   </ng-container>
 </div>
