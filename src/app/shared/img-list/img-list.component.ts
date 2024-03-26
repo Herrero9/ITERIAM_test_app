@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Host, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Host, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { Photo } from '../Models/models';
 
@@ -11,8 +11,6 @@ import { Photo } from '../Models/models';
 export class ImgListComponent implements OnInit {
   @Input() imgArray: Photo[] = [];
 
-  @ViewChild('list') list: ElementRef | undefined;
-
   imgArrayCopy: Photo[] = [];
 
   partialImgLoad: Photo[] = [];
@@ -22,7 +20,7 @@ export class ImgListComponent implements OnInit {
   loaded: boolean = false;
   scrolled: boolean = false;
   
-  constructor() { }
+  constructor(private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loaded = false;
@@ -37,19 +35,16 @@ export class ImgListComponent implements OnInit {
 
 
   onScroll(event:any){
-    event.preventDefault();
-    
     //console.log(event.target.scrollTop);
     
     // altura visible + pixeles desplazados >= altura total 
     if ((event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight)
     && (this.loaded == true) && (this.lastImg < this.imgArray.length - 1) && (!this.scrolled)){
-      
       this.scrolled = true;
       this.loadMoreImages();
     }else if(event.target.scrollTop == 0){
       console.log("top");
-      this.deleteLastImg();
+      //this.deleteLastImg();
     }
     
   }
@@ -70,7 +65,7 @@ export class ImgListComponent implements OnInit {
       }
     }
     console.log(this.partialImgLoad);
-    
+    this.ref.detectChanges();
     this.loaded = true;
     this.scrolled = false;
     
