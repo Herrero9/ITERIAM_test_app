@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
 
   filterImages(e: any) {
     e.preventDefault();
+    
     if(this.filterForm.value.inputText){
       this.imgArrayCopy = this.filterPipe.transform(this.imgArray, this.filterForm.value.inputText, 0);
     }

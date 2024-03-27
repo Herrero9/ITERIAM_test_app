@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
 import { SharedService } from '../shared.service';
 import { Photo } from '../Models/models';
 
@@ -8,7 +8,7 @@ import { Photo } from '../Models/models';
   styleUrls: ['./img-list.component.scss'],
   providers: [SharedService]
 })
-export class ImgListComponent implements OnInit {
+export class ImgListComponent implements OnChanges {
   @Input() imgArray: Photo[] = [];
 
   imgArrayCopy: Photo[] = [];
@@ -22,20 +22,23 @@ export class ImgListComponent implements OnInit {
   
   constructor(private ref: ChangeDetectorRef) { }
 
-  ngOnInit() {
-    this.loaded = false;
-    this.imgArrayCopy = [...this.imgArray]
-    for(let i = 0; i < 10; i++){
-      this.partialImgLoad.push(this.imgArrayCopy[i]);
-      this.lastImg = i;
-    }
-    this.loaded = true;
-  }
+  // ngOnInit() {
+  //   this.loaded = false;
+  //   this.imgArrayCopy = [...this.imgArray]
+  //   for(let i = 0; i < 10; i++){
+  //     this.partialImgLoad.push(this.imgArrayCopy[i]);
+  //     this.lastImg = i;
+  //   }
+  //   this.loaded = true;
+  // }
 
   ngOnChanges(){
     this.loaded = false;
+
+    this.imgArrayCopy = [];
     this.imgArrayCopy = [...this.imgArray];
     this.partialImgLoad = [];
+
     for(let i = 0; i < 10; i++){
       if(this.imgArrayCopy[i]){
         this.partialImgLoad.push(this.imgArrayCopy[i]);

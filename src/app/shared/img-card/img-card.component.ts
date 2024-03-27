@@ -9,6 +9,7 @@ export class ImgCardComponent implements OnInit {
 
   @Input() img: any;
   @Input() text: string = '';
+  @Input() lazy: boolean = false;
 
   constructor() { }
 
