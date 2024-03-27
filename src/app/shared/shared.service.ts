@@ -14,7 +14,7 @@ export class SharedService {
             this.imgArray.push({
                 id: i,
                 photo: `https://picsum.photos/id/${i}/500/500.jpg`,
-                text: "random_lorem_ipsum_text"
+                text: "Photo Description " + i
             })
         }
     }

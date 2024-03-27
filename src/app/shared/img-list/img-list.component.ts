@@ -24,12 +24,12 @@ export class ImgListComponent implements OnInit {
 
   ngOnInit() {
     this.loaded = false;
-      this.imgArrayCopy = [...this.imgArray]
-      for(let i = 0; i < 10; i++){
-        this.partialImgLoad.push(this.imgArrayCopy[i]);
-        this.lastImg = i;
-      }
-      this.loaded = true;
+    this.imgArrayCopy = [...this.imgArray]
+    for(let i = 0; i < 10; i++){
+      this.partialImgLoad.push(this.imgArrayCopy[i]);
+      this.lastImg = i;
+    }
+    this.loaded = true;
   }
 
   ngOnChanges(){

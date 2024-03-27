@@ -28,20 +28,24 @@ export class HeaderComponent implements OnInit {
     this.imgArrayCopy = [...this.imgArray];
   }
 
-  filterImages() {
+  filterImages(e: any) {
+    e.preventDefault();
     if(this.filterForm.value.inputText){
-      this.imgArrayCopy = this.filterPipe.transform(this.imgArray, this.filterForm.value.inputText);
+      this.imgArrayCopy = this.filterPipe.transform(this.imgArray, this.filterForm.value.inputText, 0);
     }
     if(this.filterForm.value.inputNumber !== undefined && this.filterForm.value.inputNumber !== null){
       let idToFilter = parseInt(this.filterForm.value.inputNumber);
-      this.imgArrayCopy = this.imgArray.filter(img => img.id === idToFilter);
+      this.imgArrayCopy = this.filterPipe.transform(this.imgArray, '', idToFilter);
     }
 
     this.filteredImages.emit(this.imgArrayCopy);
+    this.filterForm.reset();
   }
 
-  clearFilter() {
+  clearFilter(e: any) {
+    e.preventDefault();
     this.imgArray = JSON.parse(this._sharedService.generateImgJson());
+    this.filterForm.reset();
     this.filteredImages.emit(this.imgArray);
   }
 
