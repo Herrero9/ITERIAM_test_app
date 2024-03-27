@@ -1,7 +1,7 @@
 
 <main class="main">
   <div class="header">
-    <app-header></app-header>
+    <app-header [imgArray]="this.completeImgArray" (filteredImages)="getFilteredImages($event)"></app-header>
   </div>
   <div class="content">
     <app-img-list [imgArray]="this.imgArray" ></app-img-list>

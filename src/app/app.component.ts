@@ -1,6 +1,6 @@
 
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
 import { SharedService } from './shared/shared.service';
@@ -24,13 +24,20 @@ export class AppComponent {
 
   imgArray: Photo[] = [];
 
+  completeImgArray: Photo[] = [];
+
+
   constructor(private _sharedService: SharedService) {
   } 
 
   ngOnInit() {
     this._sharedService.populateArray()
     this.imgArray = JSON.parse(this._sharedService.generateImgJson());
-      // console.log(this.imgArray);
+    this.completeImgArray = [...this.imgArray];
+  }
+
+  getFilteredImages(filteredImages: Photo[]) {
+    this.imgArray = [...filteredImages];
   }
 
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Host, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import { SharedService } from '../shared.service';
 import { Photo } from '../Models/models';
 
@@ -29,31 +29,37 @@ export class ImgListComponent implements OnInit {
         this.partialImgLoad.push(this.imgArrayCopy[i]);
         this.lastImg = i;
       }
-      console.log(this.partialImgLoad);
       this.loaded = true;
+  }
+
+  ngOnChanges(){
+    this.loaded = false;
+    this.imgArrayCopy = [...this.imgArray];
+    this.partialImgLoad = [];
+    for(let i = 0; i < 10; i++){
+      if(this.imgArrayCopy[i]){
+        this.partialImgLoad.push(this.imgArrayCopy[i]);
+        this.lastImg = i;
+      }
+    }
+    
+    this.loaded = true;
   }
 
 
   onScroll(event:any){
-    //console.log(event.target.scrollTop);
-    
     // altura visible + pixeles desplazados >= altura total 
     if ((event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight)
     && (this.loaded == true) && (this.lastImg < this.imgArray.length - 1) && (!this.scrolled)){
       this.scrolled = true;
       this.loadMoreImages();
-    }else if(event.target.scrollTop == 0){
-      console.log("top");
-      //this.deleteLastImg();
     }
     
   }
 
   loadMoreImages(){
     this.loaded = false;
-    
-    // this.partialImgLoad = [];
-    console.log(this.partialImgLoad);
+  
     //total de imagenes a cargar 
     let index = this.lastImg + 11;
 
@@ -64,27 +70,27 @@ export class ImgListComponent implements OnInit {
         this.lastImg = i;
       }
     }
-    console.log(this.partialImgLoad);
+    
     this.ref.detectChanges();
     this.loaded = true;
     this.scrolled = false;
     
   }
 
-  deleteLastImg(){
-    this.loaded = false
-    console.log(this.partialImgLoad);
-    let index = this.lastImg - 10;
-   if(this.lastImg > 10){
-    for(let i = this.lastImg; i > index; i--){
-      this.partialImgLoad.pop();
-      this.lastImg--;
-    }
-   }
-    console.log(this.partialImgLoad);
-    this.loaded = true;
-    this.scrolled = false;
-  }
+  // deleteLastImg(){
+  //   this.loaded = false
+  //   console.log(this.partialImgLoad);
+  //   let index = this.lastImg - 10;
+  //  if(this.lastImg > 10){
+  //   for(let i = this.lastImg; i > index; i--){
+  //     this.partialImgLoad.pop();
+  //     this.lastImg--;
+  //   }
+  //  }
+  //   console.log(this.partialImgLoad);
+  //   this.loaded = true;
+  //   this.scrolled = false;
+  // }
 
   
 }

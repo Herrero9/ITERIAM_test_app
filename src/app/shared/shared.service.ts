@@ -17,7 +17,6 @@ export class SharedService {
                 text: "random_lorem_ipsum_text"
             })
         }
-        // console.log(this.imgArray);
     }
 
     generateImgJson(){
