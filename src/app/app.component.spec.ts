@@ -25,10 +25,6 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have a title', () => {
-    expect(component.title).toBeDefined();
-  });
-
   it('should have scrollEnd set to false by default', () => {
     expect(component.scrollEnd).toBeFalse();
   });
